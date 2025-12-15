@@ -1,0 +1,14 @@
+
+.pills-input {
+    min-height: 30px;
+    padding: 0;
+    padding-left: 10px;
+    padding-top: 1px;
+    border-radius: 8px;
+    border: 1px solid #DEE2E6;
+}
+
+.pills-input-field {
+    font-size: 12px; 
+    padding-top: 5px;
+}

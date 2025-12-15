@@ -1,0 +1,12 @@
+
+.input-focus:focus-within {
+    border-color: #4263EB;
+
+}
+
+.combobox {
+    box-shadow: 
+        0px 7px 7px -5px rgba(0, 0, 0, 0.04),
+        0px 10px 15px -5px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}

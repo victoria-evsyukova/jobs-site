@@ -1,0 +1,9 @@
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.vacancy-title {
+  line-height: 1;
+  max-height: 1em;
+}
