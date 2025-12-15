@@ -1,31 +1,36 @@
 import plus from '../assets/img/Vector.svg';
+import { addSkill, removeSkill } from '../redux/features/slices/VacanciesSlice';
+import { useTypedDispatch, useTypedSelector } from '../redux/hooks/redux';
+import type { RootState } from '../redux/store/store';
 import style from './Skills.module.css';
 import { Flex, Text, PillsInput, Pill, Button, Image } from "@mantine/core";
 import { useState } from "react";
 
 
 export default function Skills () {
-    const [ skills, setSkills ] = useState<string[]>(['TypeScript', 'React', 'Redux']);
+    const skills = useTypedSelector((state: RootState) => state.vacancy.searchParams.skills)
     const [ inputValue, setInputValue ] = useState('');
+    const dispatch = useTypedDispatch();
+
 
     const handleAddSkills = () => {
         if (inputValue.trim() === '' ) return;
 
         if(!skills.includes(inputValue.trim())) {
-            setSkills([...skills, inputValue.trim()])
+            dispatch(addSkill(inputValue));
         }
         setInputValue('');
     }
 
 
     const handleRemoveSkill = (skillToRemove: string) => {
-        setSkills(skills.filter(skill => skill !== skillToRemove))
+        dispatch(removeSkill(skillToRemove))
     }
 
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            
+            e.preventDefault();
             handleAddSkills();
         }
     }

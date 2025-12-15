@@ -1,5 +1,10 @@
 
-.input-focus:focus-within {
+.input-field {
+    width: 100%;
+    cursor: pointer;
+}
+
+.input-field:focus-within {
     border-color: #4263EB;
 
 }

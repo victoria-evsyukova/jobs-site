@@ -35,7 +35,9 @@ export default function FilteredCity() {
                 onOptionSubmit={handleCitySelect}
             >
                 <Combobox.Target>
+                    
                     <PillsInput w={269} h={36}
+                        onClick={() => combobox.toggleDropdown()}
                         rightSection={<Combobox.Chevron />}
                         leftSection={<IconMapPin size={16} stroke={1.3} />} 
                         classNames={{ input: style['input-focus']}}
@@ -43,10 +45,11 @@ export default function FilteredCity() {
                         <PillsInput.Field
                             placeholder="Все города"
                             value={value}
-                            onClick={() => combobox.toggleDropdown()}
-                            onChange={(e) => setValue(e.currentTarget.value)}
-
                             readOnly
+                            onChange={(e) => setValue(e.currentTarget.value)}
+                            classNames={{ field: style['input-field']}}
+                           
+                            
                         />
 
                     </PillsInput>

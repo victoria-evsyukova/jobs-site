@@ -1,14 +1,13 @@
-import { Box, Flex, Loader, Pagination, Group, Text } from "@mantine/core";
+import { Flex, Pagination, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import type { RootState } from "../redux/store/store";
 import { useTypedDispatch, useTypedSelector } from "../redux/hooks/redux";
 import { fetchVacancies } from "../redux/features/api/vacanciesApi";
 import Vacancy from "../features/vacancy/Vacancy";
-import style from './VacanciesList.module.css';
 
 export default function VacanciesList () {
 
-    const { vacancies, loading, error, searchParams } = useTypedSelector((state: RootState) => state.vacancy);
+    const { vacancies, error, searchParams } = useTypedSelector((state: RootState) => state.vacancy);
     const dispatch = useTypedDispatch();
     const [ activePage, setActivePage ] = useState(1);
 
@@ -31,16 +30,6 @@ export default function VacanciesList () {
     }, [searchParams])
 
 
-
-    if (loading) {
-        return (
-            <Box className={style['loader']}>
-                <Loader size="lg" />
-            </Box>
-        );
-    }
-
-
   if (error) return <div>Error: {error}</div>
 
     return (
@@ -55,7 +44,7 @@ export default function VacanciesList () {
                 <Text ta="center" size="lg" mt="xl">
                     {searchParams.text 
                         ? `По запросу "${searchParams.text}" вакансий не найдено`
-                        : "Вакансий пока нет"}
+                        : ""}
                 </Text>
             ) : (
                 <>
