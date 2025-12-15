@@ -7,4 +7,7 @@
   line-height: 1;
   min-height: 22px;
   overflow: hidden;
+  line-clamp: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
 }
