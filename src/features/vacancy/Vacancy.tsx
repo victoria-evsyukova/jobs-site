@@ -71,7 +71,7 @@ export default function Vacancy ({ vacancy }: VacancyType) {
 
     return (
         <Card w={659} h={248} bdrs={'12px'} p={24}>
-            <Text c={'#364FC7'} size='20px' fw={600} lineClamp={1}
+            <Text c={'#364FC7'} size='20px' fw={600}
                 className={style['vacancy-title']}    
             >{vacancy.name}</Text>
             <Flex gap={'14px'} mt={'8px'} align={'center'}>

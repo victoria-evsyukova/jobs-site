@@ -5,5 +5,6 @@
 
 .vacancy-title {
   line-height: 1;
-  max-height: 1em;
+  min-height: 22px;
+  overflow: hidden;
 }
