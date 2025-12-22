@@ -1,1 +1,1 @@
-https://victoria-evsyukova.github.io/jobs-site/vacancies
+https://victoria-evsyukova.github.io/jobs-site
