@@ -3,7 +3,7 @@ import plus from '../assets/img/Vector.svg';
 import style from './Skills.module.css';
 import { Flex, Text, PillsInput, Pill, Button, Image } from "@mantine/core";
 import { useState } from "react";
-import { parseSkillsFromUrl, DEFAULT_SKILLS } from '../utils/skillsUtils';
+import { parseSkillsFromUrl } from '../utils/skillsUtils';
 
 
 export default function Skills () {
@@ -12,15 +12,14 @@ export default function Skills () {
 
     const skillsParam = searchParams.get('skills');
     
-    const skills = skillsParam === '[]' 
-        ? [] 
-        : parseSkillsFromUrl(skillsParam);
+    const skills = skillsParam === '[]' ? [] : parseSkillsFromUrl(skillsParam);
 
+    
     const updateSkills = (newSkills: string[]) => {
         const newParams = new URLSearchParams(searchParams);
         
         if (newSkills.length === 0) {
-            newParams.set('skills', '[]'); // Удаляем параметр, если массив пустой
+            newParams.set('skills', '[]');
         } else {
             newParams.set('skills', JSON.stringify(newSkills));
         }

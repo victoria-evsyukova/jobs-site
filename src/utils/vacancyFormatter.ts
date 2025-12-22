@@ -58,7 +58,4 @@ export const formatVacancyData = (vacancy: Vacancy) => {
         formattedSalary: formatSalary(),
         workFormat: getWorkFormat(),
     }
-    
-    
-
 }
