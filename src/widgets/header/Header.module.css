@@ -1,5 +1,6 @@
 .header {
-    max-width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
     height: 60px;
     background-color: #FFFFFF;
     font-family: 'Open Sans';

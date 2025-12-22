@@ -1,30 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Combobox, useCombobox, Flex, PillsInput,  } from '@mantine/core';
 import style from './FilteredCity.module.css';
 import { IconMapPin } from '@tabler/icons-react';
-import { useTypedDispatch } from '../redux/hooks/redux';
-import { setSearchParams } from '../redux/features/slices/VacanciesSlice';
+import { useSearchParams } from 'react-router';
 
 export default function FilteredCity() {
+    const [ searchParams, setSearchParams ] = useSearchParams();
     const combobox = useCombobox();
     const [value, setValue] = useState('');
-    const dispatch = useTypedDispatch();
 
-    const cityMapping: Record<string, number> = {
-        'Все города': 0,
-        'Москва': 1,
-        'Санкт-Петербург': 2,
+    const cityMapping: Record<string, string> = {
+        'Все города': '',
+        'Москва': '1',
+        'Санкт-Петербург': '2',
     };
 
+    const reverseCityMapping: Record<string, string> = {
+        '': 'Все города',
+        '1': 'Москва',
+        '2': 'Санкт-Петербург',
+    };
+
+    useEffect(() => {
+        const areaFromUrl = searchParams.get('area') || '';
+        const cityName = reverseCityMapping[areaFromUrl] || 'Все города';
+        setValue(cityName);
+    }, [searchParams])
+
+
     const handleCitySelect = (cityName: string) => {
+        const cityId = cityMapping[cityName];
+        
         setValue(cityName);
         combobox.closeDropdown();
-        
-        const cityId = cityName === 'Все города' ? '' : String(cityMapping[cityName]);
+    
+        const newParams = new URLSearchParams(searchParams);
 
-        dispatch(setSearchParams({ 
-            area: cityId,
-        }));
+        if (cityId == '') {
+            newParams.delete('area');
+        } else {
+            newParams.set('area', cityId);
+        }
+        
+        newParams.set('page', '1');
+        setSearchParams(newParams);
     };
 
 
@@ -46,10 +65,7 @@ export default function FilteredCity() {
                             placeholder="Все города"
                             value={value}
                             readOnly
-                            onChange={(e) => setValue(e.currentTarget.value)}
                             classNames={{ field: style['input-field']}}
-                           
-                            
                         />
 
                     </PillsInput>
@@ -57,9 +73,11 @@ export default function FilteredCity() {
 
                 <Combobox.Dropdown className={style.combobox}>
                     <Combobox.Options>
-                        <Combobox.Option value="Все города">Все города</Combobox.Option>
-                        <Combobox.Option value="Москва">Москва</Combobox.Option>
-                        <Combobox.Option value="Санкт-Петербург">Санкт-Петербург</Combobox.Option>
+                        {Object.entries(cityMapping).map(([name, id]) => (
+                            <Combobox.Option key={id} value={name}>
+                                {name}
+                            </Combobox.Option>
+                        ))}
                     </Combobox.Options>
                 </Combobox.Dropdown>
             </Combobox>

@@ -24,8 +24,8 @@ export const fetchVacancies = createAsyncThunk<Vacancy[], FetchVacanciesParams, 
       
       queryParams.set('industry', String(params.industry || 7));
       queryParams.set('professional_role', String(params.professional_role || 96));
-
-      if (params.area) {
+      
+      if (params.area && params.area.trim() !== '') {
         queryParams.set('area', params.area);
       }
       
@@ -33,9 +33,7 @@ export const fetchVacancies = createAsyncThunk<Vacancy[], FetchVacanciesParams, 
       if (params.per_page) queryParams.set('per_page', String(params.per_page));
       
       if (params.text && params.text.trim()) {
-
-        queryParams.set('search_field', 'name');
-        
+        queryParams.set('text', params.text.trim());
       }
 
 
@@ -52,17 +50,9 @@ export const fetchVacancies = createAsyncThunk<Vacancy[], FetchVacanciesParams, 
       }
       
       const data: VacanciesResponse = await response.json();
+      console.log(data)
 
      const mappedVacancies: Vacancy[] = data.items
-        .filter(item => {
-          if (!params.text || !params.text.trim()) return true;
-          
-          const searchText = params.text!.toLowerCase().trim();
-          const vacancyName = item.name.toLowerCase();
-          const companyName = item.employer.name.toLowerCase();
-          
-          return vacancyName.includes(searchText) || companyName.includes(searchText);
-        })
         .map(item => ({
           id: item.id,
           name: item.name,
@@ -72,13 +62,14 @@ export const fetchVacancies = createAsyncThunk<Vacancy[], FetchVacanciesParams, 
           employer: item.employer,
           area: item.area,
           alternate_url: item.alternate_url,
+          snippet: item.snippet
         }));
       
       return mappedVacancies;
       
     } catch (error) {
       return rejectWithValue(
-        error instanceof Error ? error.message : 'Неизвестная ошибка при загрузке вакансий'
+        error instanceof Error ? error.message : 'Ошибка'
       );
     }
   }

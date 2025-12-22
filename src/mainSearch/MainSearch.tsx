@@ -1,21 +1,37 @@
 import { TextInput, Button } from "@mantine/core";
 import { IconSearch } from '@tabler/icons-react';
 import style from './MainSearch.module.css';
-import { useTypedDispatch } from "../redux/hooks/redux";
-import { setSearchParams } from '../redux/features/slices/VacanciesSlice'
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 
 export default function MainSearch () {
-    const dispatch = useTypedDispatch();
+    const [ searchParams, setSearchParams ] = useSearchParams();
     const [ searchText, setSearchText ] = useState('');
 
+    useEffect(() => {
+        const textFromUrl = searchParams.get('text') || '';
+        setSearchParams(textFromUrl)
+    }, [])
+
+
     const handleSearch = () => {
+        const newParams = new URLSearchParams(searchParams);
+        
         if (searchText.trim()) {
-            dispatch(setSearchParams({ text: searchText }))
+            newParams.set('text', searchText.trim());
+        } else {
+            newParams.delete('text');
         }
+
+        newParams.set('page', '1');
+        
+        if (!newParams.has('skills')) {
+            newParams.set('skills', JSON.stringify(['TypeScript', 'React', 'Redux']));
+        }
+        setSearchParams(newParams);
     }
+
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {

@@ -10,7 +10,6 @@ export default function VacancyPage() {
             maw={1440} 
             gutter={1}
         >
-            {/* Левая фиксированная колонка */}
             <Grid.Col 
                 span={2.9} 
                 
@@ -21,7 +20,6 @@ export default function VacancyPage() {
                 </div>
             </Grid.Col>
             
-            {/* Правая колонка с вакансиями */}
             <Grid.Col span={5.5} >
                 <VacanciesList />
             </Grid.Col>

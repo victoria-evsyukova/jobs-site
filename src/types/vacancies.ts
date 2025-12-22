@@ -24,6 +24,10 @@ export interface Vacancy {
     name: string;
   };
   alternate_url: string;
+  snippet: {
+    requirement: string,
+    responsibility: string
+  }
 }
 
 
@@ -44,5 +48,4 @@ export interface VacanciesState {
   vacancies: Vacancy[];
   loading: boolean;
   error: string | null;
-  searchParams: SearchParams;
 }

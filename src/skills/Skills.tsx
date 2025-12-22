@@ -1,31 +1,44 @@
+import { useSearchParams } from 'react-router';
 import plus from '../assets/img/Vector.svg';
-import { addSkill, removeSkill } from '../redux/features/slices/VacanciesSlice';
-import { useTypedDispatch, useTypedSelector } from '../redux/hooks/redux';
-import type { RootState } from '../redux/store/store';
 import style from './Skills.module.css';
 import { Flex, Text, PillsInput, Pill, Button, Image } from "@mantine/core";
 import { useState } from "react";
+import { parseSkillsFromUrl, DEFAULT_SKILLS } from '../utils/skillsUtils';
 
 
 export default function Skills () {
-    const skills = useTypedSelector((state: RootState) => state.vacancy.searchParams.skills)
+    const [ searchParams, setSearchParams ] = useSearchParams();
     const [ inputValue, setInputValue ] = useState('');
-    const dispatch = useTypedDispatch();
+
+    const skills = parseSkillsFromUrl(searchParams.get('skills'));
+
+    const updateSkills = (newSkills: string[]) => {
+        const newParams = new URLSearchParams(searchParams);
+        
+        newParams.set('skills', JSON.stringify(newSkills));
+        newParams.set('page', '1');
+        setSearchParams(newParams);
+    };
 
 
     const handleAddSkills = () => {
-        if (inputValue.trim() === '' ) return;
+        if (inputValue.trim() === '') return;
 
-        if(!skills.includes(inputValue.trim())) {
-            dispatch(addSkill(inputValue));
+        const skillToAdd = inputValue.trim();
+        
+        if (!skills.includes(skillToAdd)) {
+            updateSkills([...skills, skillToAdd]);
+            setInputValue('');
         }
-        setInputValue('');
-    }
+    };
 
 
     const handleRemoveSkill = (skillToRemove: string) => {
-        dispatch(removeSkill(skillToRemove))
-    }
+        const newSkills = skills.filter(skill => skill !== skillToRemove);
+        const finalSkills = newSkills.length > 0 ? newSkills : DEFAULT_SKILLS;
+        
+        updateSkills(finalSkills);
+    };
 
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

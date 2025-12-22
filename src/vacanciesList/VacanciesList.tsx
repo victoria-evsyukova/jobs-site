@@ -1,63 +1,78 @@
 import { Flex, Pagination, Group, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import type { RootState } from "../redux/store/store";
 import { useTypedDispatch, useTypedSelector } from "../redux/hooks/redux";
 import { fetchVacancies } from "../redux/features/api/vacanciesApi";
-import Vacancy from "../features/vacancy/Vacancy";
+import VacancyCard from "../features/vacancy/VacancyCard";
+import { useSearchParams } from "react-router";
+import { parseSkillsFromUrl } from "../utils/skillsUtils";
 
 export default function VacanciesList () {
-
-    const { vacancies, error, searchParams } = useTypedSelector((state: RootState) => state.vacancy);
+    const [ searchParams, setSearchParams ] = useSearchParams();
+    const { vacancies, error } = useTypedSelector((state: RootState) => state.vacancy);
     const dispatch = useTypedDispatch();
-    const [ activePage, setActivePage ] = useState(1);
 
+    const text = searchParams.get('text') || '';
+    const area = searchParams.get('area') || '';
+    const skillsParam = searchParams.get('skills');
+    const pageParam = searchParams.get('page') || '1';
+
+    const skills = useMemo(() => {
+        return parseSkillsFromUrl(skillsParam);
+    }, [skillsParam]);
+
+
+    const currentPage = parseInt(pageParam)
+    
      useEffect(() => {
         const requestParams: any = {
-            page: activePage, 
+            page: currentPage, 
             per_page: 8,
-            area: searchParams.area,
+            area: area || undefined,
+            text: text || undefined,
+            skill_set: skills,
         };
         
-        if (searchParams.text) {
-            requestParams.text = searchParams.text;
-        }
-        
         dispatch(fetchVacancies(requestParams));
-    }, [dispatch, activePage, searchParams]);
+    }, [dispatch, currentPage, text, area, skills]);
 
-    useEffect(() => {
-        setActivePage(1)
-    }, [searchParams])
+
+    const handlePageChange = (page: number) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('page', page.toString());
+        setSearchParams(newParams);
+        window.history.replaceState({}, '', `?${newParams.toString()}`);
+    };
 
 
   if (error) return <div>Error: {error}</div>
 
     return (
         <Flex direction={'column'} gap={'md'}>
-            {searchParams.text && (
+            {text && (
                 <Text size="sm" color="dimmed">
-                    Поиск: "{searchParams.text}"
+                    Поиск: "{text}"
                 </Text>
             )}
 
            {vacancies.length === 0 ? (
                 <Text ta="center" size="lg" mt="xl">
-                    {searchParams.text 
-                        ? `По запросу "${searchParams.text}" вакансий не найдено`
+                    {text 
+                        ? `По запросу "${text}" вакансий не найдено`
                         : ""}
                 </Text>
             ) : (
                 <>
                     {vacancies.map(vacancy => (
-                        <Vacancy key={vacancy.id} vacancy={vacancy} />
+                        <VacancyCard key={vacancy.id} vacancy={vacancy} />
                     ))}
                     
                     <Flex justify={'center'} align={'center'} mt={10}>
                         <Pagination.Root 
                             total={10}
                             color={'#4263EB'}
-                            value={activePage}
-                            onChange={setActivePage}
+                            value={currentPage}
+                            onChange={handlePageChange}
                         >
                             <Group gap={5} justify="center">
                                 <Pagination.First />

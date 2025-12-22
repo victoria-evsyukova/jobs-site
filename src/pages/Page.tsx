@@ -1,16 +1,17 @@
 import { Container } from "@mantine/core";
-import Header from "../widgets/header/Header";
 import style from './Page.module.css'
-import MainPage from "./mainPage/MainPage";
+import type { ReactNode } from "react";
 
 
-export default function Page () {
+interface PageProps {
+    children?: ReactNode
+}
+
+export default function Page ({ children}: PageProps) {
 
     return (
         <Container className={style.container}>
-            <Header />
-
-            <MainPage />
+            {children}
         </Container>
     )
 }

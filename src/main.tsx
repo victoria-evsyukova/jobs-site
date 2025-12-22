@@ -6,12 +6,13 @@ import App from './app/App.tsx';
 import { Provider } from 'react-redux';
 import { setupStore } from './redux/store/store.ts';
 
+
 const store = setupStore()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+        <App />
     </Provider>
-  </StrictMode>,
+  </StrictMode>
 )
