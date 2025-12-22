@@ -7,6 +7,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import VacanciesList from './VacanciesList';
 import vacanciesReducer from '../redux/features/slices/VacanciesSlice';
 import type { VacanciesState } from '../types/vacancies';
+import { useSearchParams } from 'react-router-dom';
+
+// 1. Сначала мокируем useSearchParams
+vi.mock('react-router-dom', () => ({
+  ...vi.importActual('react-router-dom'),
+  useSearchParams: vi.fn(),
+}));
 
 
 vi.mock('../features/vacancy/Vacancy', () => ({
@@ -40,11 +47,6 @@ const mockInitialState: VacanciesState = {
   vacancies: [],
   loading: false,
   error: null,
-  searchParams: {
-    text: '',
-    area: '1',
-    skills: ['TypeScript', 'React'],
-  },
 };
 
 
@@ -127,6 +129,10 @@ const renderWithProviders = (
         employer: { id: '4', name: 'Google' },
         area: { id: '1', name: 'Москва' },
         alternate_url: 'https://example.com/vacancy/1',
+        snippet: { 
+          requirement: 'Требования: TypeScript, React',
+          responsibility: 'Обязанности: Разработка интерфейсов'
+        },
       },
     ];
 
@@ -135,9 +141,8 @@ const renderWithProviders = (
       reducer: {
         vacancy: (state = {
           vacancies: mockVacancies,
-          loading: false, // ← точно false
+          loading: false,
           error: null,
-          searchParams: mockInitialState.searchParams,
         }) => state
       }
     });
@@ -159,14 +164,17 @@ const renderWithProviders = (
 
     it('отображает текст поиска при наличии searchParams.text', async () => {
       const searchText = 'Frontend';
+
+      (useSearchParams as any).mockReturnValue([
+        new URLSearchParams({ text: searchText }),
+      ]);
+
       const store = configureStore({
         reducer: {
           vacancy: (state = {
             vacancies: mockVacancies,
-            searchParams: {
-              ...mockInitialState.searchParams,
-              text: searchText,
-            },
+            loading: false,
+            error: null,
           }) => state
         }
     });
@@ -184,6 +192,10 @@ const renderWithProviders = (
 
 
     it('не отображает текст поиска при отсутствии searchParams.text', () => {
+      (useSearchParams as any).mockReturnValue([
+        new URLSearchParams(),
+      ]);
+
       const preloadedState: VacanciesState = {
         ...mockInitialState,
         vacancies: mockVacancies,
@@ -199,6 +211,11 @@ const renderWithProviders = (
   describe('Побочные эффекты', () => {
     it('вызывает fetchVacancies при монтировании компонента', async () => {
     console.log('=== ТЕСТ fetchVacancies ===');
+
+
+    (useSearchParams as any).mockReturnValue([
+      new URLSearchParams({ text: '', area: '1'  }),
+    ]);
 
     mockFetchVacancies.mockClear();
     mockFetchVacancies.mockImplementation((params) => {
@@ -218,7 +235,6 @@ const renderWithProviders = (
           vacancies: [],
           loading: false,
           error: null,
-          searchParams: mockInitialState.searchParams,
         },
       },
     });
