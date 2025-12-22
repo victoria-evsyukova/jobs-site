@@ -13,19 +13,14 @@ function App() {
     <MantineProvider>
       <BrowserRouter basename="/jobs-site">
         <Routes>
-          <Route element={<AppLayout />}>
-            <Route path='/' element={
-              <Page>
+          <Route path='/' element={<AppLayout />}>
+            <Route path='/vacancies' element={
+              <Page> 
                 <MainPage />
               </Page>
-            } />
-          <Route path='/vacancies' element={
-            <Page> 
-              <MainPage />
-            </Page>
-            } />
-          <Route path='/vacancies/:id' element={<VacancyDetails />} />
-          <Route path="*" />
+              } />
+            <Route path='/vacancies/:id' element={<VacancyDetails />} />
+            <Route path="*" />
           </Route>
         </Routes>
       </BrowserRouter>

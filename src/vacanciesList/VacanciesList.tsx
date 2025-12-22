@@ -22,7 +22,7 @@ export default function VacanciesList () {
     }, [skillsParam]);
 
 
-    const currentPage = parseInt(pageParam)
+    const currentPage = parseInt(pageParam);
     
      useEffect(() => {
         const requestParams: any = {
