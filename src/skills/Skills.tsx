@@ -10,12 +10,20 @@ export default function Skills () {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [ inputValue, setInputValue ] = useState('');
 
-    const skills = parseSkillsFromUrl(searchParams.get('skills'));
+    const skillsParam = searchParams.get('skills');
+    
+    const skills = skillsParam === '[]' 
+        ? [] 
+        : parseSkillsFromUrl(skillsParam);
 
     const updateSkills = (newSkills: string[]) => {
         const newParams = new URLSearchParams(searchParams);
         
-        newParams.set('skills', JSON.stringify(newSkills));
+        if (newSkills.length === 0) {
+            newParams.set('skills', '[]'); // Удаляем параметр, если массив пустой
+        } else {
+            newParams.set('skills', JSON.stringify(newSkills));
+        }
         newParams.set('page', '1');
         setSearchParams(newParams);
     };
@@ -35,9 +43,8 @@ export default function Skills () {
 
     const handleRemoveSkill = (skillToRemove: string) => {
         const newSkills = skills.filter(skill => skill !== skillToRemove);
-        const finalSkills = newSkills.length > 0 ? newSkills : DEFAULT_SKILLS;
         
-        updateSkills(finalSkills);
+        updateSkills(newSkills);
     };
 
 
