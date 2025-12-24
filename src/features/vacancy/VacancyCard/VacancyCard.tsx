@@ -1,7 +1,7 @@
 import { Card, Text, Flex, Button } from '@mantine/core';
 import type { Vacancy } from '../../../types/vacancies';
 import style from './VacanyCard.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { formatVacancyData } from '../../../utils/vacancyFormatter';
 
 interface VacancyType {
@@ -11,6 +11,7 @@ interface VacancyType {
 
 export default function VacancyCard ({ vacancy, isDetailed = false }: VacancyType) {
     const { id, employer, area, alternate_url } = vacancy;
+    const { city } = useParams();
     const { formattedExperience, formattedSalary, workFormat } = formatVacancyData(vacancy);
 
     const handleApplyClick = () => {
@@ -46,7 +47,7 @@ export default function VacancyCard ({ vacancy, isDetailed = false }: VacancyTyp
            
             <Flex gap={'10px'}>
                  {!isDetailed && (
-                    <Link to={`/vacancies/${id}`} state={{ vacancy }}>
+                    <Link to={`/vacancies/${city}/${id}`} state={{ vacancy }}>
                         <Button bg={'black'} fw={400} className={style['button']}>Смотреть вакансию</Button>
                     </Link>
                  )}
