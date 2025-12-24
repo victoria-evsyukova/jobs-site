@@ -11,3 +11,26 @@
 .cursor {
     cursor: pointer;
 }
+
+
+.link {
+    color: #0F0F1080; 
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.active {
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    
+}
+
+.link:hover {
+    color: #4263EB;
+}
+
+.img {
+    max-width: 20px;
+    height: auto;
+}

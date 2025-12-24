@@ -15,10 +15,8 @@ export default function () {
         if (!value) return;
 
         const newParams = new URLSearchParams(searchParams);
-        newParams.set('page', '1'); // Сбрасываем пагинацию
+        newParams.set('page', '1');
         
-        
-        // Навигация с сохранением всех query параметров
         navigate(`/vacancies/${value}`);
 
     }
