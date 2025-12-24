@@ -1,5 +1,5 @@
 import { useLocation } from "react-router";
-import VacancyCard from "../vacancy/VacancyCard";
+import VacancyCard from "../VacancyCard/VacancyCard";
 import { Flex, Text, Box } from "@mantine/core";
 
 

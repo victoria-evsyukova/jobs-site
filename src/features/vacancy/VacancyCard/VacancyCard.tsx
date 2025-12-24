@@ -1,8 +1,8 @@
 import { Card, Text, Flex, Button } from '@mantine/core';
-import type { Vacancy } from '../../types/vacancies';
+import type { Vacancy } from '../../../types/vacancies';
 import style from './VacanyCard.module.css';
 import { Link } from 'react-router-dom';
-import { formatVacancyData } from '../../utils/vacancyFormatter';
+import { formatVacancyData } from '../../../utils/vacancyFormatter';
 
 interface VacancyType {
     vacancy: Vacancy;

@@ -11,8 +11,8 @@ export default function MainSearch () {
 
     useEffect(() => {
         const textFromUrl = searchParams.get('text') || '';
-        setSearchParams(textFromUrl)
-    }, [])
+        setSearchText(textFromUrl)
+    }, [searchParams])
 
 
     const handleSearch = () => {
@@ -25,10 +25,7 @@ export default function MainSearch () {
         }
 
         newParams.set('page', '1');
-        
-        if (!newParams.has('skills')) {
-            newParams.set('skills', JSON.stringify(['TypeScript', 'React', 'Redux']));
-        }
+
         setSearchParams(newParams);
     }
 

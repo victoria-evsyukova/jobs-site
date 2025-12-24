@@ -1,11 +1,10 @@
 import '@mantine/core/styles.css';
 import './App.css';
-import Page from '../pages/Page';
+import HomePage from '../pages/HomePage/HomePage';
 import { MantineProvider } from '@mantine/core';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import VacancyDetails from '../features/vacancyDetails/VacancyDetails';
-import MainPage from '../pages/mainPage/MainPage';
-import AppLayout from '../layout/AppLayout';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import VacancyDetails from '../features/vacancy/vacancyDetails/VacancyDetails';
+import AppLayout from '../layouts/AppLayout';
 
 function App() {
 
@@ -13,19 +12,11 @@ function App() {
     <MantineProvider>
       <BrowserRouter basename="/jobs-site">
         <Routes>
-          <Route element={<AppLayout />}>
-            <Route path='/' element={
-              <Page>
-                <MainPage />
-              </Page>
-            } />
-          <Route path='/vacancies' element={
-            <Page> 
-              <MainPage />
-            </Page>
-            } />
-          <Route path='/vacancies/:id' element={<VacancyDetails />} />
-          <Route path="*" />
+          <Route path='/' element={<AppLayout />}>
+            <Route index element={<Navigate to='//vacancies/moscow' replace />} />
+            <Route path='vacancies/:city' element={<HomePage />} />
+            <Route path='vacancy/:city/:id' element={<VacancyDetails />} />
+            <Route path="*" />
           </Route>
         </Routes>
       </BrowserRouter>

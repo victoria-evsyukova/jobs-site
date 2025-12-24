@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router';
-import plus from '../assets/img/Vector.svg';
+import plus from '../../../assets/img/Vector.svg';
 import style from './Skills.module.css';
 import { Flex, Text, PillsInput, Pill, Button, Image } from "@mantine/core";
 import { useState } from "react";
-import { parseSkillsFromUrl } from '../utils/skillsUtils';
+import { parseSkillsFromUrl } from '../../../utils/skillsUtils';
 
 
 export default function Skills () {

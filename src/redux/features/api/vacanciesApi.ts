@@ -12,7 +12,7 @@ interface FetchVacanciesParams {
   professional_role?: number;
   text?: string;
   skill_set?: string[];
-  area?: string;
+  city?: string;
 }
 
 
@@ -24,9 +24,18 @@ export const fetchVacancies = createAsyncThunk<Vacancy[], FetchVacanciesParams, 
       
       queryParams.set('industry', String(params.industry || 7));
       queryParams.set('professional_role', String(params.professional_role || 96));
+
+      const cityToAreaMapping: Record<string, string> = {
+        'moscow': '1',  
+        'peterburg': '2',  
+        'all-cities': '' 
+      };
       
-      if (params.area && params.area.trim() !== '') {
-        queryParams.set('area', params.area);
+      if (params.city && params.city in cityToAreaMapping) {
+        const areaId = cityToAreaMapping[params.city];
+        if (areaId) {
+          queryParams.set('area', areaId);
+        }
       }
       
       if (params.page) queryParams.set('page', String(params.page - 1));

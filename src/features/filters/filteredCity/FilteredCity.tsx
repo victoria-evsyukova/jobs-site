@@ -2,50 +2,46 @@ import { useEffect, useState } from 'react';
 import { Combobox, useCombobox, Flex, PillsInput,  } from '@mantine/core';
 import style from './FilteredCity.module.css';
 import { IconMapPin } from '@tabler/icons-react';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 
 export default function FilteredCity() {
-    const [ searchParams, setSearchParams ] = useSearchParams();
+    const navigate = useNavigate();
+    const { city: currentCity } = useParams();
+    const [ searchParams ] = useSearchParams();
     const combobox = useCombobox();
     const [value, setValue] = useState('');
 
     const cityMapping: Record<string, string> = {
-        'Все города': '',
-        'Москва': '1',
-        'Санкт-Петербург': '2',
+        'Все города': 'all-cities',
+        'Москва': 'moscow',
+        'Санкт-Петербург': 'peterburg',
     };
-
+    
     const reverseCityMapping: Record<string, string> = {
-        '': 'Все города',
-        '1': 'Москва',
-        '2': 'Санкт-Петербург',
+        'all-cities': 'Все города',
+        'moscow': 'Москва',
+        'peterburg': 'Санкт-Петербург',
     };
 
     useEffect(() => {
-        const areaFromUrl = searchParams.get('area') || '';
-        const cityName = reverseCityMapping[areaFromUrl] || 'Все города';
-        setValue(cityName);
-    }, [searchParams])
-
+        const cityName = currentCity ? reverseCityMapping[currentCity] : 'Все города';
+        setValue(cityName || 'Все города');
+    }, [currentCity]);
 
     const handleCitySelect = (cityName: string) => {
-        const cityId = cityMapping[cityName];
+        const cityValue = cityMapping[cityName];
+        
+        if (!cityValue) return;
         
         setValue(cityName);
         combobox.closeDropdown();
     
         const newParams = new URLSearchParams(searchParams);
-
-        if (cityId == '') {
-            newParams.delete('area');
-        } else {
-            newParams.set('area', cityId);
-        }
         
         newParams.set('page', '1');
-        setSearchParams(newParams);
+        
+        navigate(`/vacancies/${cityValue}`);
     };
-
 
     return (
         <Flex w={317} h={84} bg={'white'} bdrs={'12px'} align={'center'} justify={'center'}>

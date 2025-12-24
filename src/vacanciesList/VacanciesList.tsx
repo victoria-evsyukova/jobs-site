@@ -3,17 +3,17 @@ import { useEffect, useMemo } from "react";
 import type { RootState } from "../redux/store/store";
 import { useTypedDispatch, useTypedSelector } from "../redux/hooks/redux";
 import { fetchVacancies } from "../redux/features/api/vacanciesApi";
-import VacancyCard from "../features/vacancy/VacancyCard";
-import { useSearchParams } from "react-router";
+import VacancyCard from "../features/vacancy/VacancyCard/VacancyCard";
+import { useParams, useSearchParams } from "react-router";
 import { parseSkillsFromUrl } from "../utils/skillsUtils";
 
 export default function VacanciesList () {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const { vacancies, error } = useTypedSelector((state: RootState) => state.vacancy);
     const dispatch = useTypedDispatch();
+    const { city } = useParams();
 
     const text = searchParams.get('text') || '';
-    const area = searchParams.get('area') || '';
     const skillsParam = searchParams.get('skills');
     const pageParam = searchParams.get('page') || '1';
 
@@ -28,13 +28,13 @@ export default function VacanciesList () {
         const requestParams: any = {
             page: currentPage, 
             per_page: 8,
-            area: area || undefined,
+            city: city,
             text: text || undefined,
             skill_set: skills,
         };
         
         dispatch(fetchVacancies(requestParams));
-    }, [dispatch, currentPage, text, area, skills]);
+    }, [dispatch, currentPage, text, city, skills]);
 
 
     const handlePageChange = (page: number) => {
@@ -63,7 +63,7 @@ export default function VacanciesList () {
                 </Text>
             ) : (
                 <>
-                    {vacancies.map(vacancy => (
+                    {vacancies.map((vacancy) => (
                         <VacancyCard key={vacancy.id} vacancy={vacancy} />
                     ))}
                     
