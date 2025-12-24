@@ -2,7 +2,7 @@ import '@mantine/core/styles.css';
 import './App.css';
 import HomePage from '../pages/HomePage/HomePage';
 import { MantineProvider } from '@mantine/core';
-import { Routes, Route, Navigate, BrowserRouter, HashRouter } from 'react-router-dom';
+import { Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import VacancyDetails from '../features/vacancy/vacancyDetails/VacancyDetails';
 import AppLayout from '../layouts/AppLayout';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
