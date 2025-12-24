@@ -1,5 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
-import { render } from '../test/utils';
+import { render } from '../../../test/utils';
 import userEvent from '@testing-library/user-event';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { Provider } from 'react-redux';

@@ -1,11 +1,11 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render } from '../test/utils';
+import { render } from '../../../test/utils';
 import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import MainSearch from './MainSearch';
-import vacanciesReducer from '../redux/features/slices/VacanciesSlice';
+import vacanciesReducer from '../../../redux/features/slices/VacanciesSlice';
 
 
 vi.mock('@tabler/icons-react', () => ({
