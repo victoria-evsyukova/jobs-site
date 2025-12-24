@@ -2,7 +2,7 @@ import '@mantine/core/styles.css';
 import './App.css';
 import HomePage from '../pages/HomePage/HomePage';
 import { MantineProvider } from '@mantine/core';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, HashRouter } from 'react-router-dom';
 import VacancyDetails from '../features/vacancy/vacancyDetails/VacancyDetails';
 import AppLayout from '../layouts/AppLayout';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <MantineProvider>
-      <BrowserRouter basename="/jobs-site">
+      <HashRouter >
         <Routes>
           <Route path='/' element={<AppLayout />} errorElement={<ErrorPage />}>
             <Route index element={<Navigate to='/vacancies/moscow' replace />} />
@@ -21,7 +21,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />}/>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </MantineProvider>
   )
 }
