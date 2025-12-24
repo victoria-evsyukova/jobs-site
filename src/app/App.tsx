@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import VacancyDetails from '../features/vacancy/vacancyDetails/VacancyDetails';
 import AppLayout from '../layouts/AppLayout';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
-import ErrorPage from '../pages/ErrorPage';
 
 function App() {
 
@@ -14,7 +13,7 @@ function App() {
     <MantineProvider>
       <BrowserRouter basename="/jobs-site">
         <Routes>
-          <Route path='/' element={<AppLayout />} errorElement={<ErrorPage />}>
+          <Route path='/' element={<AppLayout />}>
             <Route index element={<Navigate to='/vacancies/moscow' replace />} />
             <Route path='vacancies/:city' element={<HomePage />} />
             <Route path='vacancies/:city/:id' element={<VacancyDetails />} />
