@@ -1,5 +1,5 @@
 import { Flex, Text, Button, Image } from '@mantine/core'
-import cat from '../../assets/img/sad-cat 1.jpg'
+import cat from '../../assets/img/SadCat.gif'
 
 export default function NotFoundPage () {
     return (
