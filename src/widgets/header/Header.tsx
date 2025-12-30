@@ -38,8 +38,9 @@ export default function Header() {
                             </Text>
                             {isVacanciesPage && (
                                 <Indicator  
-                                    size={8}
+                                    size={9}
                                     color={'#4263EB'} 
+                                    className={style.pulsingIndicator}
                                     withBorder 
                                 />
                             )}
@@ -62,8 +63,9 @@ export default function Header() {
                             <Text td={'none'} mr={7} fw={500} className={isActive ? style.active : style.link}>Обо мне</Text>
                             {isActive && (
                                 <Indicator  
-                                    size={8}
+                                    size={9}
                                     color={'#4263EB'} 
+                                    className={style.pulsingIndicator}
                                     withBorder 
                                 />
                             )}
