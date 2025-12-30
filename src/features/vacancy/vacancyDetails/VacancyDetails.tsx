@@ -1,11 +1,14 @@
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import VacancyCard from "../VacancyCard/VacancyCard";
 import { Flex, Text, Box } from "@mantine/core";
-
+import { useTypedSelector } from "../../../redux/hooks/redux";
+import type { RootState } from "../../../redux/store/store";
 
 export default function VacancyDetails () {
-    const location = useLocation();
-    const vacancy = location.state?.vacancy;
+    const { id } = useParams();
+    const { vacancies } = useTypedSelector((state: RootState) => state.vacancy);
+
+    const vacancy = vacancies.find(v => v.id === id);
     
     if (!vacancy) {
         return (

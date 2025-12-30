@@ -1,7 +1,7 @@
 import { Card, Text, Flex, Button } from '@mantine/core';
 import type { Vacancy } from '../../../types/vacancies';
 import style from './VacanyCard.module.css';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { formatVacancyData } from '../../../utils/vacancyFormatter';
 
 interface VacancyType {
@@ -12,10 +12,15 @@ interface VacancyType {
 export default function VacancyCard ({ vacancy, isDetailed = false }: VacancyType) {
     const { id, employer, area, alternate_url } = vacancy;
     const { city } = useParams();
+    const navigate = useNavigate()
     const { formattedExperience, formattedSalary, workFormat } = formatVacancyData(vacancy);
 
     const handleApplyClick = () => {
         window.open(alternate_url, '_blank', 'noopener,noreferrer')
+    }
+
+    const handleButtonClick = () => {
+        navigate(`/vacancies/${city}/${id}`)
     }
 
 
@@ -47,9 +52,9 @@ export default function VacancyCard ({ vacancy, isDetailed = false }: VacancyTyp
            
             <Flex gap={'10px'}>
                  {!isDetailed && (
-                    <Link to={`/vacancies/${city}/${id}`} state={{ vacancy }}>
-                        <Button bg={'black'} fw={400} className={style['button']}>Смотреть вакансию</Button>
-                    </Link>
+                    <Button bg={'black'} fw={400} className={style['button']} 
+                        onClick={handleButtonClick}>Смотреть вакансию
+                    </Button>
                  )}
                 <Button bg={isDetailed ? '#000000' : '#0F0F101A'} c={isDetailed ? 'white' : '#0F0F10'} fw={400} 
                     className={style['button']} onClick={handleApplyClick}>

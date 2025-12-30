@@ -3,11 +3,14 @@ import style from './Header.module.css';
 import logo from '../../assets/img/image 2.svg';
 import user from '../../assets/img/user-circle.svg';
 import userActive from '../../assets/img/Vector (2).svg';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 
 
 export default function Header() {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const isVacanciesPage = location.pathname.includes('/vacancies/');
 
     const handleClickLogo = () => {
         navigate('/vacancies/all-cities')
@@ -28,14 +31,14 @@ export default function Header() {
 
             <Flex justify={'center'} gap={'25px'}>
                 <NavLink to='/vacancies/moscow' className={style.link}>
-                    {({ isActive }) => (
+                    {() => (
                         <Group gap={'10px'}>
-                            <Text td={'none'} fw={500} size='md' className={isActive ? style.active : style.link}>
+                            <Text td={'none'} fw={500} size='md' className={isVacanciesPage ? style.active : style.link}>
                                 Вакансии FE
                             </Text>
-                            {isActive && (
+                            {isVacanciesPage && (
                                 <Indicator  
-                                    size={10}
+                                    size={8}
                                     color={'#4263EB'} 
                                     withBorder 
                                 />
@@ -59,7 +62,7 @@ export default function Header() {
                             <Text td={'none'} mr={7} fw={500} className={isActive ? style.active : style.link}>Обо мне</Text>
                             {isActive && (
                                 <Indicator  
-                                    size={10}
+                                    size={8}
                                     color={'#4263EB'} 
                                     withBorder 
                                 />
