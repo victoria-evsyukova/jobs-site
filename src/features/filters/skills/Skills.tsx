@@ -5,22 +5,18 @@ import {
     PillsInput, 
     Pill, 
     Button, 
-    Image, 
     Paper, 
     Group, 
     Badge,
     ActionIcon,
     Tooltip,
     Stack,
-    Box,
-    Kbd,
     Divider
 } from "@mantine/core";
 import { 
     IconPlus, 
     IconX, 
     IconSearch, 
-    IconStar, 
     IconSparkles,
     IconTrash,
     IconCheck,

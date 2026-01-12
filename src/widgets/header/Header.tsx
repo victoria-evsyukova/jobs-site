@@ -5,12 +5,10 @@ import {
     Image, 
     Indicator, 
     Button, 
-    Box, 
     Badge,
     Avatar,
     Menu,
     ActionIcon,
-    useMantineTheme,
     Paper
 } from '@mantine/core';
 import { 
@@ -35,7 +33,6 @@ import logo from '../../assets/img/image 2.svg';
 export default function Header() {
     const navigate = useNavigate();
     const location = useLocation();
-    const theme = useMantineTheme();
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState(3);
 
@@ -48,12 +45,10 @@ export default function Header() {
 
     const handleNotificationClick = () => {
         setNotifications(0);
-        // Логика для показа уведомлений
     }
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
-        // Здесь можно добавить логику переключения темы
     }
 
     return (
