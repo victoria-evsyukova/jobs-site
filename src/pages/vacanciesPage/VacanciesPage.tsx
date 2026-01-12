@@ -11,7 +11,7 @@ export default function VacanciesPage () {
     return (
         <>
         <Container mx={'auto'} my={'30px'} className={style['container-title']}>
-            <Flex justify={'center'} mb={'25px'} gap={'40px'}>
+            <Flex justify={'center'} mb={'25px'} gap={'200px'} >
                 <Flex direction={'column'} mr={'30px'}>
                     <Text size="26px" fw={700}>Список вакансий</Text>
                     <Text fw={500} size="20px" c={'#0F0F1080'} pt={'10px'}> по профессии Frontend-разработчик</Text>
@@ -29,8 +29,8 @@ export default function VacanciesPage () {
 
         <Grid 
             justify="center"  
-            maw={1440} 
-            gutter={1}
+            maw={1800} 
+            gutter={30}
         >
             <Grid.Col 
                 span={2.9} 
@@ -42,7 +42,7 @@ export default function VacanciesPage () {
                 </div>
             </Grid.Col>
             
-            <Grid.Col span={5.5} >
+            <Grid.Col span={4.5} >
                 <CityTabs />
                 <VacanciesList />
             </Grid.Col>

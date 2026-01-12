@@ -44,14 +44,14 @@ export default function FilteredCity() {
     };
 
     return (
-        <Flex w={317} h={84} bg={'white'} bdrs={'12px'} align={'center'} justify={'center'}>
+        <Flex w={'380px'} h={84} bg={'white'} bdrs={'12px'} align={'center'} justify={'center'}>
             <Combobox 
                 store={combobox}
                 onOptionSubmit={handleCitySelect}
             >
                 <Combobox.Target>
                     
-                    <PillsInput w={269} h={36}
+                    <PillsInput w={312} h={36}
                         onClick={() => combobox.toggleDropdown()}
                         rightSection={<Combobox.Chevron />}
                         leftSection={<IconMapPin size={16} stroke={1.3} />} 

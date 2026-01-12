@@ -1,60 +1,411 @@
+/* Header.module.css */
+
+/* Основной контейнер */
 .header {
-    width: auto;
-    margin: 0 auto;
-    height: 60px;
-    background-color: #FFFFFF;
-    font-family: 'Open Sans';
-    border-radius: 8px;
-    box-shadow: 0 2px 22.5px 0 rgba(28, 29, 31, 0.05);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-bottom: 1px solid hsl(210, 16%, 93%);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
-.cursor {
+.headerContainer {
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 24px;
+}
+
+/* Логотип */
+.logoGroup {
     cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-width: 200px;
 }
 
+.logoGroup:hover {
+    background: rgba(66, 99, 235, 0.05);
+    transform: translateY(-2px);
+}
 
-.link {
-    color: #0F0F1080; 
-    transition: color 0.2s;
+.logoContainer {
+    position: relative;
+}
+
+.logoImage {
+    filter: drop-shadow(0 4px 8px rgba(66, 99, 235, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.logoGroup:hover .logoImage {
+    transform: rotate(-10deg);
+}
+
+.logoGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle, rgba(66, 99, 235, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+.logoText {
+    background: linear-gradient(90deg, #2c3e50 0%, #4263EB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    position: relative;
+}
+
+.logoDot {
+    color: #4263EB;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.logoSubtitle {
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-top: -4px;
+}
+
+/* Основная навигация */
+.mainNav {
+    flex: 1;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
     text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.active {
-    color: #000000;
+.navItem:hover {
+    background: rgba(66, 99, 235, 0.05);
+    color: #4263EB;
+    transform: translateY(-2px);
+}
+
+.navItemActive {
+    background: linear-gradient(90deg, rgba(66, 99, 235, 0.1) 0%, rgba(112, 72, 232, 0.05) 100%);
+    color: #4263EB;
     font-weight: 600;
-    text-decoration: none;
-    
 }
 
-.link:hover {
+.navItemWithIndicator {
+    padding-right: 32px;
+}
+
+.navIndicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Правый блок действий */
+.actionsGroup {
+    min-width: 300px;
+}
+
+/* Поиск */
+.searchContainer {
+    position: relative;
+    flex: 1;
+    max-width: 250px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    z-index: 1;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: #4263EB;
+    box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.1);
+}
+
+/* Переключение темы */
+.themeToggle {
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.themeToggle:hover {
+    color: #4263EB;
+    background: rgba(66, 99, 235, 0.1);
+    transform: rotate(30deg);
+}
+
+/* Уведомления */
+.notificationWrapper {
+    position: relative;
+}
+
+.notificationButton {
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.notificationButton:hover {
+    color: #4263EB;
+    background: rgba(66, 99, 235, 0.1);
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.notificationBadge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0;
+    font-size: 10px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff6b6b 0%, #ff8e8e 100%);
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Сообщения */
+.messageButton {
+    color: #6c757d;
+    position: relative;
+}
+
+.messageButton:hover {
     color: #4263EB;
 }
 
-.img {
-    max-width: 20px;
-    height: auto;
+.messageBadge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    font-size: 9px;
+    padding: 0 4px;
+    min-width: 16px;
+    height: 16px;
 }
 
+/* Профиль */
+.profileMenuTrigger {
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-        
+.profileMenuTrigger:hover {
+    background: rgba(66, 99, 235, 0.05);
+}
+
+.avatar {
+    background: linear-gradient(135deg, #4263EB 0%, #7048E8 100%);
+    transition: all 0.3s ease;
+}
+
+.profileMenuTrigger:hover .avatar {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(66, 99, 235, 0.3);
+}
+
+.chevronIcon {
+    color: #6c757d;
+    transition: transform 0.3s ease;
+}
+
+.profileMenuTrigger:hover .chevronIcon {
+    transform: translateY(2px);
+}
+
+.profileDropdown {
+    border: 1px solid #e9ecef;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.menuItem {
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin: 2px 0;
+    transition: all 0.2s ease;
+}
+
+.menuItem:hover {
+    background: rgba(66, 99, 235, 0.05);
+    padding-left: 16px;
+}
+
+/* Кнопка размещения вакансии */
+.postJobButton {
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 99, 235, 0.2);
+}
+
+.postJobButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(66, 99, 235, 0.3);
+}
+
+/* Вторичная навигация (города) */
+.secondaryNav {
+    padding: 12px 0;
+    border-top: 1px solid #e9ecef;
+    margin-top: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-    50% {
-        transform: scale(1.2);
-        opacity: 0.7;
-        --indicator-color: rgb(27, 174, 64);
-    }
-    100% {
-        transform: scale(1);
+    to {
         opacity: 1;
-        --indicator-color: #4263EB;
+        transform: translateY(0);
     }
 }
 
-.pulsingIndicator {
-    display: inline-block;
-    animation: pulse 1.5s infinite ease-in-out;
+.cityButton {
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.cityButton:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .searchContainer {
+        max-width: 200px;
+    }
+    
+    .actionsGroup {
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 992px) {
+    .logoGroup {
+        min-width: auto;
+    }
+    
+    .logoText {
+        font-size: 20px;
+    }
+    
+    .searchContainer {
+        display: none;
+    }
+    
+    .mainNav {
+        padding: 0 10px;
+    }
+    
+    .navItem {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .postJobButton span {
+        display: none;
+    }
+    
+    .postJobButton {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .headerContainer {
+        padding: 0 16px;
+    }
+    
+    .mainNav {
+        display: none;
+    }
+    
+    .actionsGroup {
+        min-width: auto;
+    }
+    
+    .themeToggle,
+    .messageButton {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .logoGroup {
+        padding: 6px 8px;
+    }
+    
+    .logoText {
+        font-size: 18px;
+    }
+    
+    .logoSubtitle {
+        font-size: 10px;
+    }
+    
+    .notificationButton,
+    .postJobButton {
+        padding: 8px;
+    }
 }

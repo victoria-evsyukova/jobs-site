@@ -1,16 +1,313 @@
+/* Skills.module.css */
 
-.pills-input {
-    min-height: 30px;
-    padding: 0;
-    padding-left: 10px;
-    padding-top: 1px;
-    border-radius: 8px;
-    border: 1px solid #DEE2E6;
+/* Основной контейнер */
+.skillsContainer {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    max-width: 380px;
 }
 
-.pills-input-field {
-    font-size: 12px; 
-    padding-top: 5px;
-    padding-right: 10px;
+.skillsContainer:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Заголовок */
+.titleIcon {
+    background: linear-gradient(135deg, #4263EB 0%, #7048E8 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    color: #2c3e50;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    opacity: 0.8;
+}
+
+.clearAllButton {
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.clearAllButton:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Контейнер ввода */
+.inputContainer {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.inputGroup {
+    position: relative;
     width: 100%;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 20px;
+    top: 55%;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    z-index: 2;
+}
+
+/* Pills Input */
+.pillsInput {
+    width: 100%;
+}
+
+.pillGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 12px 12px 40px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.pillGroup:focus-within {
+    border-color: #4263EB;
+    box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.1);
+}
+
+.skillPill {
+    background: linear-gradient(135deg, rgba(66, 99, 235, 0.1) 0%, rgba(112, 72, 232, 0.05) 100%);
+    border: 1px solid rgba(66, 99, 235, 0.2);
+    color: #4263EB;
+    font-weight: 500;
+    padding: 1px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    height: fit-content;
+}
+
+.skillPill:hover {
+    background: rgba(66, 99, 235, 0.15);
+    transform: translateY(-1px);
+}
+
+.inputField {
+    flex: 1;
+    min-width: 150px;
+    border: none;
+    background: transparent;
+    padding: 8px 4px;
+    font-size: 14px;
+    outline: none;
+}
+
+.inputField::placeholder {
+    color: #adb5bd;
+}
+
+/* Кнопка добавления */
+.addButton {
+    background: linear-gradient(90deg, #4263EB 0%, #7048E8 100%);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+}
+
+.addButton:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(66, 99, 235, 0.3);
+}
+
+.addButton:disabled {
+    background: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+}
+
+/* Подсказки */
+.suggestionsContainer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    margin-top: 8px;
+    border: 1px solid #e9ecef;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestionsHeader {
+    background: #f8f9fa;
+    color: #6c757d;
+}
+
+.suggestionItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    background: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #495057;
+    text-align: left;
+}
+
+.suggestionItem:hover {
+    background: #f8f9fa;
+    color: #4263EB;
+}
+
+.suggestionItem:active {
+    background: #e9ecef;
+}
+
+/* Горячие клавиши */
+.hotkeyHint {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.hotkeyHint:hover {
+    opacity: 1;
+}
+
+/* Статистика */
+.stats {
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.tipIcon {
+    color: #ffc107;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Быстрые навыки */
+.quickSkills {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.quickSkillsTitle {
+    color: #6c757d;
+}
+
+.quickSkillBadge {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.quickSkillBadge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quickSkillBadge[data-variant="outline"]:hover {
+    background: rgba(66, 99, 235, 0.1);
+    color: #4263EB;
+    border-color: #4263EB;
+}
+
+/* Анимация для добавления/удаления навыков */
+@keyframes skillAdd {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes skillRemove {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0; }
+}
+
+.skillPill {
+    animation: skillAdd 0.3s ease;
+}
+
+.skillPill.removing {
+    animation: skillRemove 0.3s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .skillsContainer {
+        max-width: 100%;
+    }
+    
+    .inputGroup {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .pillsInput {
+        width: 100%;
+    }
+    
+    .addButton {
+        width: 100%;
+    }
+    
+    .quickSkills {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .skillsContainer {
+        padding: 20px;
+    }
+    
+    .title {
+        font-size: 18px;
+    }
+    
+    .quickSkillBadge {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
 }
