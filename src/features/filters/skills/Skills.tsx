@@ -27,7 +27,7 @@ import { useState, useEffect, useRef } from "react";
 import { parseSkillsFromUrl } from '../../../utils/skillsUtils';
 import style from './Skills.module.css';
 
-// Пример популярных навыков для подсказок
+
 const POPULAR_SKILLS = [
     'React', 'TypeScript', 'JavaScript', 'Next.js', 'Node.js',
     'Redux', 'CSS', 'HTML', 'Git', 'Webpack', 'GraphQL', 'REST API',
@@ -40,9 +40,14 @@ export default function Skills() {
     const [isFocused, setIsFocused] = useState(false);
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [skills, setSkills] = useState<string[]>([]);
 
-    const skillsParam = searchParams.get('skills');
-    const skills = skillsParam === '[]' ? [] : parseSkillsFromUrl(skillsParam);
+    
+     useEffect(() => {
+        const skillsParam = searchParams.get('skills');
+        const parsedSkills = skillsParam === '[]' ? [] : parseSkillsFromUrl(skillsParam);
+        setSkills(parsedSkills);
+    }, [searchParams]);
 
     // Фильтрация популярных навыков для подсказок
     useEffect(() => {
@@ -56,6 +61,7 @@ export default function Skills() {
             setSuggestions([]);
         }
     }, [inputValue, skills, isFocused]);
+
 
     const updateSkills = (newSkills: string[]) => {
         const newParams = new URLSearchParams(searchParams);
@@ -148,15 +154,25 @@ export default function Skills() {
             {/* Поле ввода с подсказками */}
             <div className={style.inputContainer}>
                 <Group gap="xs" className={style.inputGroup}>
-                    <div className={style.searchIcon}>
-                        <IconSearch size={18} />
-                    </div>
+                    
                     
                     <PillsInput 
                         className={style.pillsInput}
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+                        bdrs={20}
                     >
+                        <IconSearch size={18} color='grey'/>
+                         
+                        <PillsInput.Field
+                            placeholder="Введите навык..."
+                            className={style.inputField}
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.currentTarget.value)}
+                            onKeyDown={handleKeyDown}
+                            bdrs={20}
+                        />
+                    </PillsInput>
                         <Pill.Group className={style.pillGroup}>
                             {skills.map((skill) => (
                                 <Pill
@@ -170,16 +186,9 @@ export default function Skills() {
                                 </Pill>
                             ))}
                             
-                            <PillsInput.Field
-                                ref={inputRef}
-                                placeholder="Введите навык..."
-                                className={style.inputField}
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.currentTarget.value)}
-                                onKeyDown={handleKeyDown}
-                            />
+                            
                         </Pill.Group>
-                    </PillsInput>
+                    
 
                     <Button
                         className={style.addButton}

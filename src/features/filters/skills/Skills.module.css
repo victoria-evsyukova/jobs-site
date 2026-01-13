@@ -55,17 +55,15 @@
 }
 
 .searchIcon {
-    position: absolute;
-    left: 20px;
-    top: 55%;
     transform: translateY(-50%);
     color: #adb5bd;
-    z-index: 2;
+    margin-left: 8px;
 }
 
 /* Pills Input */
 .pillsInput {
     width: 100%;
+    border-radius: 10px;
 }
 
 .pillGroup {
@@ -75,7 +73,7 @@
     align-items: center;
     width: 100%;
     min-height: 48px;
-    padding: 12px 12px 12px 40px;
+    padding: 12px 12px 12px 25px;
     border: 2px solid #e9ecef;
     border-radius: 12px;
     background: white;
@@ -106,11 +104,10 @@
 .inputField {
     flex: 1;
     min-width: 150px;
-    border: none;
     background: transparent;
     padding: 8px 4px;
     font-size: 14px;
-    outline: none;
+    margin-left: 10px;
 }
 
 .inputField::placeholder {
